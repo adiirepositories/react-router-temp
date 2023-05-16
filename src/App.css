@@ -1,0 +1,52 @@
+
+.App {
+  text-align: center;
+  font-size: 1.1em;
+  height: 100vh;
+}
+
+.Temp{
+  margin-top: 4%;
+  margin-bottom: 5%;  
+  border-radius: 20px;
+}
+
+.icontemp{
+    /* min-height: 50vh; */
+    margin-top: 25vh;
+    text-align: center;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  
+}
+
+.bottomnav{
+  /* position: fixed; */
+  bottom: 5vh;
+  width: 100%;
+  color: white;
+  text-align: center;
+
+}
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 10uh;
+  background:lightblue;
+}
+
+.nav-links{
+  width: 50%  ;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+
+/* .card{
+  
+} */
