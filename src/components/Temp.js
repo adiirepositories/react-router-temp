@@ -1,16 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import '../App.css';
-// import Search from './Search';
-// import { Link } from 'react-router-dom';
-// import { ReactComponent as Logo } from './sun.svg';
-import { WiCelsius, WiHumidity, WiStrongWind, WiThermometer,WiThermometerExterior} from "react-icons/wi";
-// import { FcAreaChart } from "react-icons/fc";
+import { WiCelsius, WiHumidity, WiStrongWind, WiThermometer, WiThermometerExterior } from "react-icons/wi";
 import Card from '@material-ui/core/Card';
-// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Swal from 'sweetalert2';
-
-// import Box from '@material-ui/material/Box';
 
 //search module
 import { FormControl } from '@material-ui/core';
@@ -35,12 +28,14 @@ function Temp() {
   const [error, setError] = useState(false);
   //State for City
   const [city, setCity] = useState({})
-
   // State for windspeed
   const [wind, setWind] = useState({
     speed: "null",
     deg: "null"
   });
+
+  const [weather, setWeather] = useState('null')
+
 
   // state for sys
   const [sys, setSys] = useState({
@@ -61,26 +56,28 @@ function Temp() {
     temp_min: "null"
   });
 
-
-  useEffect(() =>{
+  useEffect(() => {
     fetchItems();
-  },[url])
+  }, [url])
 
-  const fetchItems = async () =>{
+  const fetchItems = async () => {
     let data;
     //setError(false);
 
-    try{
+    try {
       data = await fetch(url);
-      const items = await data.json();
+      // console.log('await 1 fetch');
 
-    // return fetched api to state
+      const items = await data.json();
+      // console.log(items.weather[0].main);
+
+      // return fetched api to state
       setCity(items);
       setTemp(items.main);
+      setWeather(items.weather[0].description);
       setSys(items.sys);
       setWind(items.wind);
-    
-    }catch(err){
+    } catch (err) {
       //fetch(url);
       //setError(true)
       console.log(error);
@@ -90,29 +87,25 @@ function Temp() {
         icon: 'error',
         title: 'Oops...',
         text: 'Something went wrong!',
-        footer: '<a href="">City name not found..</a>',
-        timer: 4000
+        footer: '<a href="">City name not found..</a>'
       })
       // alert("City not found, enter the valid city");
       window.location.reload(false);
     }
-   
+
   };
 
-  const handleKeypress = e => {
-    if (e.keyCode === 13) {
-      this.btn.click();
-      console.log("enter pressed");
-    }
-  };
+  // console.log('3');
 
-// return requested api state
+  // console.log(weather);
+
+  // Dislpay requested api state
   return (
     <Fragment>
-      <div>   
+      <div>
         <FormControl>
           <InputLabel color='secondary' variant='filled' htmlFor="my-input"></InputLabel>
-          <Input  placeholder="Search City.." inputProps={{ 'aria-label': 'description' }} type='text' value={query} onKeyPress={handleKeypress} onChange={event => setQuery(event.target.value)}/>
+          <Input placeholder="Search City.." inputProps={{ 'aria-label': 'description' }} type='text' value={query} onChange={event => setQuery(event.target.value)} />
           <FormHelperText id="my-helper-text">Input the correct city!</FormHelperText>
           <Button
             type="button"
@@ -120,36 +113,38 @@ function Temp() {
             variant="contained"
             color="secondary"
             startIcon={<SearchIcon />}
-            >Get Weather
+          >Get Weather
           </Button>
           {/* {error && <div style={{color: `red`}}>some error occurred, while fetching api</div>} */}
         </FormControl>
       </div>
 
       {/* <div className="Temp"> */}
-        <Fragment>
-          <Card  className="Temp" style={{display: 'inline-block'}} sx={{ width: '75%'}} variant='outlined'>
-            <CardContent>
-              {/* <div>  */}
-                <h2>City: {city.name} </h2> 
-                <Degtemp tempprops={tempstate.temp} feels_likeprops={tempstate.feels_like} humidprops={tempstate.humidity} windprops={wind.speed}/>
-                <Checkcountry countryprops={sys.country} />
-              {/* </div> */}
-            </CardContent>
-          </Card>
-        </Fragment>
+      <Fragment>
+        <Card className="Temp" style={{ display: 'inline-block' }} sx={{ width: '75%' }} variant='outlined'>
+          <CardContent>
+            {/* <div>  */}
+            <h2>City: {city.name} </h2>
+            <h2>Weather: {weather} </h2>
+            <Degtemp tempprops={tempstate.temp} feels_likeprops={tempstate.feels_like} humidprops={tempstate.humidity} windprops={wind.speed} />
+            <Checkcountry countryprops={sys.country} />
+            {/* </div> */}
+          </CardContent>
+        </Card>
+      </Fragment>
       {/* </div> */}
     </Fragment>
-  );  
+  );
 }
+// console.log('4');
 
-function Checkcountry({countryprops}){
+function Checkcountry({ countryprops }) {
   var countryvar = ''
-  if(countryprops === 'ID'){
-       countryvar = 'Indonesia';
-  }else{countryvar =countryprops }
-  return(
-    <h2>country: {countryvar}</h2> 
+  if (countryprops === 'ID') {
+    countryvar = 'Indonesia';
+  } else { countryvar = countryprops }
+  return (
+    <h2>country: {countryvar}</h2>
   );
 }
 
@@ -157,25 +152,25 @@ function Degtemp({ tempprops, feels_likeprops, humidprops, windprops }) {
 
   var tempcol = ''
   var humidcol = ''
-  if (tempprops < 25 ) {
-     tempcol = "blue"
-  } if (tempprops >= 26 ) {
-     tempcol = "red"
-  }if(humidprops >=50 ){
-     humidcol = "blue"
-  }if(humidprops <50 ){
-     humidcol = "red"
-  }else if(tempprops < 25){
+  if (tempprops < 25) {
+    tempcol = "blue"
+  } if (tempprops >= 26) {
+    tempcol = "red"
+  } if (humidprops >= 50) {
+    humidcol = "blue"
+  } if (humidprops < 50) {
+    humidcol = "red"
+  } else if (tempprops < 25) {
     tempcol = "blue"
 
-  } 
- 
+  }
+
   return (
     <Fragment>
       <h2><WiThermometer color={tempcol} />Temperature: {tempprops}<WiCelsius /></h2>
-      <h2><WiThermometerExterior color={tempcol} />Feels like: {feels_likeprops}<WiCelsius /></h2> 
+      <h2><WiThermometerExterior color={tempcol} />Feels like: {feels_likeprops}<WiCelsius /></h2>
       <h2><WiHumidity color={humidcol} />Humidity: {humidprops} %</h2>
-      <h2><WiStrongWind />Wind Speed: {windprops} Km</h2>
+      <h2><WiStrongWind />Wind Speed: {windprops} m/s</h2>
     </Fragment>
   );
 }

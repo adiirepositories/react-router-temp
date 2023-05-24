@@ -24,14 +24,14 @@ const Navs = (props) => {
 
   return (
     <div>
-      <Navbar color="light" light expand="sm">
+      <Navbar color="light" light expand="sm" >
         <NavbarBrand href="/">
         <img
         alt=" "
         src={Logo}
         style={{
-          height: 40,
-          width: 40
+          height: 30,
+          width: 30
         }}
       />
         </NavbarBrand>
@@ -44,18 +44,18 @@ const Navs = (props) => {
                 </Link>
             </NavItem>
             <NavItem>
-                <Link to="/about">
-                    <NavLink>about</NavLink>
+                <Link to="/temp">
+                    <NavLink>WeatherApp</NavLink>
                 </Link>
             </NavItem>
             <NavItem>
-                <Link to="/temp">
-                    <NavLink>temp</NavLink>
+                <Link to="/about">
+                    <NavLink>About</NavLink>
                 </Link>
             </NavItem>
             <NavItem>
                 <Link to="/login">
-                    <NavLink>login</NavLink>
+                    <NavLink>Register</NavLink>
                 </Link>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
