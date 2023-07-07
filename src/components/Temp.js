@@ -13,6 +13,8 @@ import { FormHelperText } from '@material-ui/core';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
+import Typography from '@mui/material/Typography';
+import { Box } from '@mui/material';
 
 // import { Opacity } from '@material-ui/icons';
 
@@ -102,10 +104,10 @@ function Temp() {
   // Dislpay requested api state
   return (
     <Fragment>
-      <div>
+      <Box sx={{mb: '1.3rem'}}>
         <FormControl>
           <InputLabel color='secondary' variant='filled' htmlFor="my-input"></InputLabel>
-          <Input placeholder="Search City.." inputProps={{ 'aria-label': 'description' }} type='text' value={query} onChange={event => setQuery(event.target.value)} />
+            <Input variant="body1" color="text.secondary" placeholder="Search City.." inputProps={{ 'aria-label': 'description' }} type='text' value={query} onChange={event => setQuery(event.target.value)} />
           <FormHelperText id="my-helper-text">Input the correct city!</FormHelperText>
           <Button
             type="button"
@@ -117,17 +119,24 @@ function Temp() {
           </Button>
           {/* {error && <div style={{color: `red`}}>some error occurred, while fetching api</div>} */}
         </FormControl>
-      </div>
+      </Box>
 
       {/* <div className="Temp"> */}
       <Fragment>
-        <Card className="Temp" style={{ display: 'inline-block' }} sx={{ width: '75%' }} variant='outlined'>
+        <Card style={{ display: 'inline-block', opacity: 0.5, boxShadow: 5, borderRadius: 2, }} sx={{ minWidth: 540, boxShadow: 5, borderRadius: 2,}} variant='outlined'>
           <CardContent>
+
+            <Typography sx={{ letterSpacing: 2 }} variant="body1" align="center" color="text.primary" paragraph>
+              <h2>City: {city.name} </h2>
+              <h2>Weather: {weather} </h2>
+              <Degtemp tempprops={tempstate.temp} feels_likeprops={tempstate.feels_like} humidprops={tempstate.humidity} windprops={wind.speed} />
+              <Checkcountry countryprops={sys.country} />
+            </Typography>
             {/* <div>  */}
-            <h2>City: {city.name} </h2>
+            {/* <h2>City: {city.name} </h2>
             <h2>Weather: {weather} </h2>
             <Degtemp tempprops={tempstate.temp} feels_likeprops={tempstate.feels_like} humidprops={tempstate.humidity} windprops={wind.speed} />
-            <Checkcountry countryprops={sys.country} />
+            <Checkcountry countryprops={sys.country} /> */}
             {/* </div> */}
           </CardContent>
         </Card>
@@ -136,7 +145,6 @@ function Temp() {
     </Fragment>
   );
 }
-// console.log('4');
 
 function Checkcountry({ countryprops }) {
   var countryvar = ''

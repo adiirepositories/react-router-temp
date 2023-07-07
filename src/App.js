@@ -11,7 +11,7 @@ import Landing from './components/Landing';
 // import Search from './components/search';
 
 // import SimpleBottomNavigation from './components/Bottomnav';
-import Imagebackground from './img/bg3.jpg'
+import Imagebackground from './img/bgnew.jpg'
 
 function App() {
  

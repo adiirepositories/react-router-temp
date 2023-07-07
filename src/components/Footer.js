@@ -29,7 +29,7 @@ export default function StickyFooter() {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '100vh',
+          // minHeight: '100vh',
         }}
       >
         <CssBaseline />
@@ -50,14 +50,16 @@ export default function StickyFooter() {
           <Typography variant="body1">"@material-ui/core": "^4.10.0"</Typography>
           <Typography variant="body1">"sweetalert2": "^11.7.5"</Typography>
           <Typography variant="body1">"bootstrap": "^4.5.0"</Typography>
-          <Typography variant="body1">"formik": "^2.1.4"</Typography>
+          <Typography variant="body1">"..."</Typography>
         </Container>
         <Box
           component="footer"
           sx={{
+            
             py: 3,
             px: 2,
             mt: 'auto',
+            opacity: 0.7,
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[200]
